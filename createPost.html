@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Create Post</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background: rgba(76, 175, 80, 0.1);
+        } 
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function() { 
+            // pass username value from /login to /home
+            var user = sessionStorage.getItem("username"); 
+            var creator = JSON.parse(user);
+            var password = sessionStorage.getItem("password"); 
+            var pass = JSON.parse(password);  
+
+            $("#loginSuccess").hide();
+            
+            // if login failed, can't display create-post form
+            if (creator.length == 0 || pass == '') {
+                $("#loginFail").show();
+                $("#loginSuccess").hide();
+            } else { 
+
+                $("#loginFail").hide();
+                $("#creator").html("<h2>Author: " + creator + " </h2>");
+                $("#alertMessage").show();
+                $("#loginSuccess").show();
+
+                var logout = document.getElementById("logout");
+                logout.onclick = loggingOut;
+
+                function loggingOut() {
+                    sessionStorage.clear();
+                }
+            }      
+        });
+    </script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark" id="mainNav">
+        <a class="navbar-brand" href="#">Red&White</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#cNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="cNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/createPost">Create Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">Signup</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout" id="logout">Logout</a>
+                </li>
+            </ul>
+        </div> 
+    </nav>
+
+    <br>
+    <div class="container">
+        <h1>Create Posts</h1>
+        <br>
+        <br>
+        <h4 id="loginFail">You need to login to make a post.</h4>
+       
+        <div id="loginSuccess">
+            <div id="creator"></div> 
+            <div class="alertMessage">
+                <p style="color: red">!!! Make sure you do logged in successfully, Or you can not post the content.</p>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-8">
+                    <form action="/createPost" method="POST" id="form">
+
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label>Title</label>
+                                <input type="text" name="title" placeholder="Title" class="form-control" id="title" required>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <div class="form-group floating-label-form-group controls">
+                                <label>Content</label>
+                                <textarea name="content" placeholder="......" cols="30" rows="10" class="form-control" id="content" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group my-4 text-center">
+                            <button class="btn btn-primary" id="submitPost">Submit Post</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
