@@ -1,0 +1,13 @@
+{
+  "name": "AsyncBlog",
+  "version": "1.0.0",
+  "description": "Node.js CRUD Blog using MySQL",
+  "main": "index.js",
+  "keywords": [
+    "node",
+    "crud",
+    "mysql"
+  ],
+  "author": "Wenjing Wang",
+  "license": "ISC"
+}
