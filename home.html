@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background: rgba(76, 175, 80, 0.1);
+        } 
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.ajax({
+                url: "/",
+                method: "post",
+                success: function(data) {
+                    $("#noPost").hide();
+
+                    // get data from json and parse json
+                    for (var i = 0; i < data.length; i++) {
+                        var creator = JSON.stringify(data[i].creator);
+                        var finalCreator = JSON.parse(creator); 
+
+                        var title = JSON.stringify(data[i].title);
+                        var finalTitle = JSON.parse(title); 
+
+                        var content = JSON.stringify(data[i].content);
+                        var finalContent = JSON.parse(content); 
+
+                        var table = "<div class='row'>" +
+                                        "<div class='col-md-8'>" +
+                                            "<div class='card mb-4'>" +
+                                                "<div class='card-body'>" +
+                                                    "<h2 class='card-title'>" + finalTitle + "</h2>" + 
+                                                    "<p class='card-text'>" + finalContent + "</p>" + 
+                                                " </div>" +
+                                            "</div>" +
+                                            "<div class='text-muted'>Posted by <a href='#'>" + finalCreator + "</a>" 
+                                            + "<a style='float:right; padding-left:25px; padding-right: 25px;' href='#!''><span class='glyphicon glyphicon-edit'></span></a>" +
+                                            "<a style='float:right; padding-left:25px;' href='#!''><span class='glyphicon glyphicon-trash'></span></a>" +
+                                            "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<br><br><br>";
+
+                        $("#havePosts").append(table); 
+                    }
+                }
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md bg-dark navbar-dark" id="mainNav">
+        <a class="navbar-brand" href="#">Red&White</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#cNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="cNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/createPost">Create Post</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/signup">Signup</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <br>
+    <div class="container" id="havePosts">
+        <h1>Posts</h1>
+        <br><br>
+    </div>
+    <br>
+    <br>
+    <div class="container">
+        <h3 id="noPost">No posts available.</h3> 
+    </div> 
+
+</body>
+
+</html>
